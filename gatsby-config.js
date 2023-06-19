@@ -1,10 +1,4 @@
 /**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
- */
-
-/**
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
@@ -12,32 +6,49 @@ module.exports = {
     title: `Gatsby Default Starter`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`
   },
   plugins: [
-    `gatsby-plugin-image`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+
+    "gatsby-transformer-remark",
+    "gatsby-plugin-react-helmet",
+    // {
+    //   resolve: "gatsby-source-graphql",
+    //   options: {
+    //     typeName: "RESTAPI",
+    //     fieldName: "restapi",
+    //     url: "https://dummy.restapiexample.com/api/v1/graphql",
+    //     createLink: () => {
+    //       const { HttpLink } = require("apollo-link-http");
+    //       const fetch = require("node-fetch");
+    //       return new HttpLink({ uri: "https://dummy.restapiexample.com/api/v1/employees", fetch });
+    //     }
+    //   }
+    // },
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: "gatsby-source-graphql",
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        // This will impact how browsers show your PWA/website
-        // https://css-tricks.com/meta-theme-color-and-trickery/
-        // theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
+        typeName: "Offer",
+        fieldName: "offers",
+        url: "https://www.soulbusinessapp.com/api/v1/get_offers"
+      }
     },
-  ],
-}
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "Banner",
+        fieldName: "Banner",
+        url: "https://www.soulbusinessapp.com/api/v1/get_banner"
+      }
+    },
+    {
+      resolve: "gatsby-plugin-playground",
+      options: {
+        endpoint: "/api/graphql"
+        // You can specify other options here, if needed
+      }
+    }
+  ]
+};
